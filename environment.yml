@@ -1,0 +1,52 @@
+# Conda Environment Specification with System Dependencies
+# Conda CREATES THE VENV and installs system-level dependencies
+# UV manages Python packages (see pyproject.toml)
+
+name: ml-system-deps
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  # ===== CONDA CREATES VIRTUAL ENVIRONMENT WITH PYTHON =====
+  - python=3.11
+
+  # ===== SYSTEM-LEVEL DEPENDENCIES (NOT AVAILABLE VIA PIP) =====
+
+  # GPU Computing (CUDA) - Binary libraries
+  - cudatoolkit=11.8
+  - cudnn=8.9.2
+
+  # Intel Math Kernel Library (Optimized linear algebra)
+  - mkl=2023.2.0
+  - mkl-include=2023.2.0
+
+  # Compilers (for building C/C++ extensions)
+  # Note: Platform-specific, uncomment for Linux
+  # - gxx_linux-64
+  # - gcc_linux-64
+
+  # System Libraries
+  - hdf5=1.14.0          # HDF5 file format support
+  - libpng=1.6.39        # PNG image support
+  - libjpeg-turbo=2.1.5  # JPEG image support
+  - zlib=1.2.13          # Compression library
+
+  # Optional: OpenBLAS (alternative to MKL)
+  # - openblas=0.3.23
+
+  # Optional: FFMPEG (video processing)
+  # - ffmpeg=6.0
+
+  # ===== DO NOT ADD PYTHON PACKAGES HERE =====
+  # All Python packages are managed by UV in pyproject.toml
+  # This keeps Conda focused on system dependencies
+  # and UV focused on Python packages
+
+  # Optional: Install UV itself via Conda (if not globally installed)
+  # - pip
+  # - pip:
+  #   - uv
